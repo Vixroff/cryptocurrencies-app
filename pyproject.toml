@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "apptrix-test-case"
+version = "0.1.0"
+description = ""
+authors = ["Maksim Vikhrov <maxvihr@yandex.ru>"]
+readme = "README.md"
+packages = [{include = "apptrix_test_case"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+Django = "^4.2.1"
+psycopg2-binary = "^2.9.6"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
