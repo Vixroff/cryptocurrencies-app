@@ -11,7 +11,8 @@ class CryptoCurrency(models.Model):
         editable=False
     )
     name = models.CharField(
-        verbose_name='Название'
+        verbose_name='Название',
+        unique=True,
     )
     symbol = models.CharField(
         verbose_name='Символ'
@@ -52,10 +53,10 @@ class CryptoCurrency(models.Model):
         null=True,
         blank=True,
     )
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name = 'Криптовалюта'
-        unique_together = ('name', 'symbol')
 
 
 class User(AbstractUser):

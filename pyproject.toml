@@ -10,6 +10,9 @@ packages = [{include = "apptrix_test_case"}]
 python = "^3.10"
 Django = "^4.2.1"
 psycopg2-binary = "^2.9.6"
+celery = "^5.2.7"
+redis = "^4.5.5"
+requests = "^2.31.0"
 
 
 [build-system]
