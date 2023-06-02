@@ -41,7 +41,6 @@ services:
   celery-beat:
     build: ./apptrix
     command: celery -A config beat -l info
-
     volumes:
       - ./docker/:/usr/src/app
     env_file:

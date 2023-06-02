@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content%}
+{% if cryptos %}
+    <div class="container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Symbol</th>
+                    <th>Price USD</th>
+                    <th>Market Capitalization</th>
+                    <th>Volume (24)</th>
+                    <th>1h %</th>
+                    <th>24h %</th>
+                    <th>7d %</th>
+                    <th>Last Updated</th>
+                </tr>
+            </thead>
+            <tbody style="text-align: left;">
+                {% for crypto in cryptos %}
+                    <tr>
+                        <td>{{crypto.name}}</td>
+                        <td>{{crypto.symbol}}</td>
+                        <td>{{crypto.price}}</td>
+                        <td>{{crypto.market_cap}}</td>
+                        <td>{{crypto.volume_24h}}</td>
+                        <td>{{crypto.percent_change_1h}}</td>
+                        <td>{{crypto.percent_change_24h}}</td>
+                        <td>{{crypto.percent_change_7d}}</td>
+                        <td>{{ crypto.updated_at|date:'H:i:s Y-m-d' }}<td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+        
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+        
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+{% else %}
+<div class="container">
+    <span>Please, push update button! Celery beat hasn't executed task yet. Or some bug there :D</span>
+</div>
+{% endif %}
+
+{% endblock %}
