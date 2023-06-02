@@ -104,7 +104,7 @@ CELERY_RESULT_SERIALIZER = 'json'
 from celery.schedules import crontab
 
 CELERY_BEAT_SCHEDULE = {
-    "sample_task": {
+    "coinmarketcap": {
         "task": "app.tasks.create_or_update_cryptocurrencies",
         "schedule": crontab(minute="*/5"),
     },

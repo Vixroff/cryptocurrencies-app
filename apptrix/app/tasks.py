@@ -1,4 +1,5 @@
 import os
+import datetime
 
 import requests
 
@@ -19,6 +20,7 @@ def create_or_update_cryptocurrencies():
     response.raise_for_status()
 
     cmc_cryptos = response.json()
+    api_call_datetime = datetime.datetime.now()
 
     existing_cryptos = {crypto.name: crypto for crypto in CryptoCurrency.objects.all()}
 
@@ -36,6 +38,7 @@ def create_or_update_cryptocurrencies():
             crypto.percent_change_1h = cmc_crypto['quote']['USD']['percent_change_1h']
             crypto.percent_change_24h = cmc_crypto['quote']['USD']['percent_change_24h']
             crypto.percent_change_7d = cmc_crypto['quote']['USD']['percent_change_7d']
+            crypto.updated_at = api_call_datetime
             cryptos_to_update.append(crypto)
         
         else:
@@ -62,6 +65,7 @@ def create_or_update_cryptocurrencies():
             'percent_change_1h',
             'percent_change_24h',
             'percent_change_7d',
+            'updated_at',
         ]
     )
     return True
