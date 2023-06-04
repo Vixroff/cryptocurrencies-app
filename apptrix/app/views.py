@@ -1,7 +1,10 @@
-from typing import Any, Dict
-from django.views.generic import ListView
+import time
+
+from django import http
+from django.views.generic import ListView, RedirectView
 
 from .models import CryptoCurrency
+from .tasks import create_or_update_cryptocurrencies
 
 
 class MainView(ListView):
@@ -13,3 +16,17 @@ class MainView(ListView):
     def get_queryset(self):
         queryset = super().get_queryset()
         return queryset.order_by('-market_cap')
+
+
+class RefreshCrypto(RedirectView):
+    """
+    Refresh cryptocurrencies data by running `create_or_update_cryptocurrencies` task.
+    """
+
+    pattern_name = 'main'
+
+    def get(self, request, *args, **kwargs):
+        task = create_or_update_cryptocurrencies.delay()
+        while not task.ready():
+            time.sleep(0.1)
+        return super().get(request, *args, **kwargs)
