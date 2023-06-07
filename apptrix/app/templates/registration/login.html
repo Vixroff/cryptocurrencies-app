@@ -24,12 +24,12 @@
         <div class="mb-3">
             <div class="form-label">{{ form.password.label_tag }}</div>
             <div type="password" class="form-control">{{ form.password }}</div>
-          </div>
+        </div>
         <button type="submit" class="btn btn-primary mb-3">Submit</button>
     </form>
-    <!-- <p>
-        <a href="#">Don't have an account?</a>
-    </p> -->
+    <p>
+        <a href="{% url 'register' %}">Don't have an account?</a>
+    </p>
 </div>
 
 

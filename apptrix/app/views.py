@@ -1,7 +1,9 @@
-from django.views.generic import ListView, RedirectView
+from django.views.generic import ListView, RedirectView, CreateView
+from django.urls import reverse_lazy
 
 from .models import CryptoCurrency
 from .tasks import create_or_update_cryptocurrencies
+from .forms import CreateUserForm
 
 
 class MainView(ListView):
@@ -28,3 +30,8 @@ class RefreshCrypto(RedirectView):
             pass
         return super().get(request, *args, **kwargs)
 
+
+class RegistrationView(CreateView):
+    form_class = CreateUserForm
+    template_name = 'registration/register.html'
+    success_url = reverse_lazy('main')
