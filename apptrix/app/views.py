@@ -1,6 +1,3 @@
-import time
-
-from django import http
 from django.views.generic import ListView, RedirectView
 
 from .models import CryptoCurrency
@@ -28,5 +25,6 @@ class RefreshCrypto(RedirectView):
     def get(self, request, *args, **kwargs):
         task = create_or_update_cryptocurrencies.delay()
         while not task.ready():
-            time.sleep(0.1)
+            pass
         return super().get(request, *args, **kwargs)
+

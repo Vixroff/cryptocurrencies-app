@@ -12,9 +12,9 @@
     <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
         <div class="container-fluid">
           <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+            <ul class="navbar-nav me-auto">
               <li class="nav-item">
-                <a class="nav-link" href="#">Home</a>
+                <a class="nav-link" href="{% url 'main' %}">Home</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">News</a>
@@ -22,14 +22,25 @@
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'refresh-crypto' %}">Refresh</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link">Login</a>
-              </li>
             </ul>
-            <form class="d-flex" role="search">
+            <form class="d-flex mx-auto p-2" role="search">
               <input class="form-control me-2" type="search" placeholder="Search crypto" aria-label="Search">
               <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
+            <ul class="navbar-nav ms-auto">
+              {% if user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link">Profile</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link">Sign Out</a>
+              </li>
+              {% else %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'login' %}">Sign In</a>
+              </li>
+              {% endif %}
+            </ul>
           </div>
         </div>
       </nav>
