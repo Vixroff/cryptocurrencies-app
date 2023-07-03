@@ -12,8 +12,8 @@ services:
       - ./docker/database:/var/lib/postgresql/data
 
   app:
-    container_name: apptrix
-    build: ./apptrix
+    container_name: application
+    build: ./project
     env_file:
       - .env
     depends_on:
@@ -27,7 +27,7 @@ services:
     image: redis:alpine
 
   celery:
-    build: ./apptrix
+    build: ./project
     command: celery -A config worker -l info
     volumes:
       - ./docker/:/usr/src/app
@@ -39,7 +39,7 @@ services:
       - db
   
   celery-beat:
-    build: ./apptrix
+    build: ./project
     command: celery -A config beat -l info
     volumes:
       - ./docker/:/usr/src/app
